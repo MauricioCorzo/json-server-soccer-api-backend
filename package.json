@@ -11,8 +11,8 @@
   },
   "scripts": {
     "build": "npx tsc && cp -r src/data dist/data",
-
     "dev": "npx tsx ./src/server.ts",
+    "start": "npm run build && node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

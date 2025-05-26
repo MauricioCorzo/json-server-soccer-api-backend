@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  jsonserver:
+    build: .
+    container_name: jsonserver_api
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./src/data:/app/src/data
+    restart: always
