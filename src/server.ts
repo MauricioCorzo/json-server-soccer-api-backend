@@ -1,20 +1,34 @@
+import express from "express";
+import { leaderboardRoutes } from "./routes/leaderboard.js";
+import { topScorersRoutes } from "./routes/top_scorers.js";
+import { topAssistsRoutes } from "./routes/top_assists.js";
+import { topRedCardsRoutes } from "./routes/top_red_cards.js";
+// import topScorersRoutes from "./routes/topScorers.js";
+// import topAssistsRoutes from "./routes/topAssists.js";
+import {
+  middlewares,
+  leaderboardRouter,
+  scorersRouter,
+  assistsRouter,
+  redCardsRouter,
+} from "./config.js";
 
-import jsonServer from "json-server";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-
-const server = jsonServer.create();
-const router = jsonServer.router(path.join(__dirname, "data/leaderboard.json"));
-const middlewares = jsonServer.defaults();
+const server = express();
 
 server.use(middlewares);
-server.use(router);
 
-const port = process.env.PORT || 3001;
-server.listen(port, () => {
-  console.log(`🚀 JSON Server corriendo en http://localhost:${port}`);
+// 🔹 Cargar rutas personalizadas
+server.use(leaderboardRoutes);
+server.use(topScorersRoutes);
+server.use(topAssistsRoutes);
+server.use(topRedCardsRoutes);
+
+// 🔹 Servir JSON Server con múltiples archivos
+server.use("/leaderboard", leaderboardRouter);
+server.use("/top_scorers", scorersRouter);
+server.use("/top_assists", assistsRouter);
+server.use("/top_red_cards", redCardsRouter);
+
+server.listen(3001, () => {
+  console.log("🚀 JSON Server corriendo en http://localhost:3001");
 });
