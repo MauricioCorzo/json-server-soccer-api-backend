@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { leaderboardRoutes } from "./routes/leaderboard.js";
 import { topScorersRoutes } from "./routes/top_scorers.js";
 import { topAssistsRoutes } from "./routes/top_assists.js";
@@ -15,6 +16,7 @@ import {
 
 const server = express();
 
+server.use(cors());
 server.use(middlewares);
 
 // 🔹 Cargar rutas personalizadas
